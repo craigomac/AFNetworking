@@ -75,8 +75,10 @@
 
 - (void)dealloc
 {
+#if !OS_OBJECT_USE_OBJC
     dispatch_release(self.completionGroup);
     dispatch_release(self.completionQueue);
+#endif
 }
 
 #pragma mark -
@@ -109,8 +111,19 @@
     operation.securityPolicy = self.securityPolicy;
 
     [operation setCompletionBlockWithSuccess:success failure:failure];
+
     operation.completionQueue = self.completionQueue;
     operation.completionGroup = self.completionGroup;
+    
+#if !OS_OBJECT_USE_OBJC
+    if (operation.completionQueue) {
+        dispatch_retain(operation.completionQueue);
+    }
+    
+    if (operation.completionGroup) {
+        dispatch_retain(operation.completionGroup);
+    }
+#endif
 
     return operation;
 }

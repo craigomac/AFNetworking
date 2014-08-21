@@ -218,8 +218,15 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }
 #endif
 
-    dispatch_release(self.completionGroup);
-    dispatch_release(self.completionQueue);
+#if !OS_OBJECT_USE_OBJC
+    if (self.completionGroup) {
+        dispatch_release(self.completionGroup);
+    }
+    
+    if (self.completionQueue) {
+        dispatch_release(self.completionQueue);
+    }
+#endif
 }
 
 #pragma mark -
@@ -545,7 +552,15 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
     }];
 
     for (AFURLConnectionOperation *operation in operations) {
+
         operation.completionGroup = group;
+
+#if !OS_OBJECT_USE_OBJC
+        if (operation.completionGroup) {
+            dispatch_retain(operation.completionGroup);
+        }
+#endif
+        
         void (^originalCompletionBlock)(void) = [operation.completionBlock copy];
         __weak __typeof(operation)weakOperation = operation;
         operation.completionBlock = ^{

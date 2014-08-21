@@ -39,15 +39,15 @@
 - (void)reload:(__unused id)sender {
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    NSURLSessionTask *task = [Post globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
-        if (!error) {
-            self.posts = posts;
-            [self.tableView reloadData];
-        }
-    }];
+//    NSURLSessionTask *task = [Post globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
+//        if (!error) {
+//            self.posts = posts;
+//            [self.tableView reloadData];
+//        }
+//    }];
 
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
-    [self.refreshControl setRefreshingWithStateOfTask:task];
+//    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+//    [self.refreshControl setRefreshingWithStateOfTask:task];
 }
 
 #pragma mark - UIViewController

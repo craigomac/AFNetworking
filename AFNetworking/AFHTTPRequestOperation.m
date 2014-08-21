@@ -197,8 +197,19 @@ static dispatch_group_t http_request_operation_completion_group() {
     AFHTTPRequestOperation *operation = [super copyWithZone:zone];
 
     operation.responseSerializer = [self.responseSerializer copyWithZone:zone];
+
     operation.completionQueue = self.completionQueue;
     operation.completionGroup = self.completionGroup;
+
+#if !OS_OBJECT_USE_OBJC
+    if (operation.completionQueue) {
+        dispatch_retain(operation.completionQueue);
+    }
+    
+    if (operation.completionGroup) {
+        dispatch_retain(operation.completionGroup);
+    }
+#endif
 
     return operation;
 }
