@@ -217,6 +217,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     }
 #endif
+
+    dispatch_release(self.completionGroup);
+    dispatch_release(self.completionQueue);
 }
 
 #pragma mark -

@@ -73,6 +73,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    dispatch_release(self.completionGroup);
+    dispatch_release(self.completionQueue);
+}
+
 #pragma mark -
 
 #ifdef _SYSTEMCONFIGURATION_H
