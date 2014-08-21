@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/craigomac/AFNetworking.git', :tag => "2.3.1", :submodules => true }
   s.requires_arc = true
 
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.8'
 
   s.public_header_files = 'AFNetworking/*.h'
@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'UIKit' do |ss|
-    ss.ios.deployment_target = '6.0'
+    ss.ios.deployment_target = '5.0'
 
     ss.dependency 'AFNetworking/NSURLConnection'
     ss.dependency 'AFNetworking/NSURLSession'
